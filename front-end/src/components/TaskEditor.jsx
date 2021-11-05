@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import TASKS_DATA from '../tasksMock';
 
 const TASK_EDITOR_CSS = {
   width: '70vw',
@@ -35,7 +34,7 @@ const SAVE_BTN_CSS = {
 
 function TaskEditor(props) {
   const { currentTaskId } = props;
-  const taskData = TASKS_DATA.find((task) => task.id === currentTaskId);
+  const taskData = props.tasksData.find((task) => task.id === currentTaskId);
   const taskText = taskData ? taskData.task : '';
   const [textAreaValue, setTextAreaValue] = useState(taskText);
 
@@ -44,14 +43,21 @@ function TaskEditor(props) {
   };
 
   function handleClickSaveBtn() {
-    const index = TASKS_DATA.findIndex((item) => item.id === currentTaskId);
+    const index = props.tasksData.findIndex((item) => item.id === currentTaskId);
+    const tasksDataCp = [...props.tasksData];
 
-    if (currentTaskId || currentTaskId === 0) TASKS_DATA[index].task = textAreaValue;
+    if (currentTaskId || currentTaskId === 0) {
+      tasksDataCp[index].task = textAreaValue;
+
+      props.setTasksData(tasksDataCp);
+    }
 
     else {
-      const id = TASKS_DATA.length + 1;
+      const id = Math.random();
 
-      TASKS_DATA.push({ id, task: textAreaValue });
+      tasksDataCp.push({ id, task: textAreaValue });
+
+      props.setTasksData(tasksDataCp);
     }
 
     props.setEditTask(false);

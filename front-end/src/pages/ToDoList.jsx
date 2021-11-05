@@ -41,8 +41,10 @@ function ToDoList() {
           editOrCreateTask
           ? <TaskEditor
               currentTaskId={ currentTaskId }
+              tasksData= { tasksData }
               setCurrentTaskId={ setCurrentTaskId }
               setEditTask={ setEditOrCreateTask }
+              setTasksData={ setTasksData }
             />
           : tasksData.map((task) =>
               <TaskField
