@@ -35,8 +35,9 @@ const SAVE_BTN_CSS = {
 
 function TaskEditor(props) {
   const { currentTaskId } = props;
-  const taskObj = TASKS_DATA.find((task) => task.id === currentTaskId);
-  const [textAreaValue, setTextAreaValue] = useState(taskObj.task);
+  const taskData = TASKS_DATA.find((task) => task.id === currentTaskId);
+  const taskText = taskData ? taskData.task : '';
+  const [textAreaValue, setTextAreaValue] = useState(taskText);
 
   function handleChangeText(event) {
     setTextAreaValue(event.target.value);
@@ -44,7 +45,14 @@ function TaskEditor(props) {
 
   function handleClickSaveBtn() {
     const index = TASKS_DATA.findIndex((item) => item.id === currentTaskId);
-    TASKS_DATA[index].task = textAreaValue;
+
+    if (currentTaskId || currentTaskId === 0) TASKS_DATA[index].task = textAreaValue;
+
+    else {
+      const id = TASKS_DATA.length + 1;
+
+      TASKS_DATA.push({ id, task: textAreaValue });
+    }
 
     return props.setEditTask(false);
   }
