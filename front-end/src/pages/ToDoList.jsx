@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import TaskField from '../components/TaskField';
+import TaskEditor from '../components/TaskEditor';
 import TASKS_DATA from '../tasksMock';
 
 const MAIN_CSS = {
@@ -8,13 +9,15 @@ const MAIN_CSS = {
   flexDirection: 'column',
   alignItems: 'center',
   width: '100vw',
-  height: 'auto',
+  height: 'auto%',
+  minHeight: '100vh',
   backgroundColor: '#FEE35D',
 };
 
 const TASKS_LOBBY_CSS = {
   width: '80vw',
-  height: '100%',
+  height: 'auto',
+  minHeight: '80vh',
   backgroundColor: '#152821',
   borderRadius: '3px',
   marginTop: '10px',
@@ -25,12 +28,30 @@ const TASKS_LOBBY_CSS = {
 }
 
 function ToDoList() {
+  const [editOrCreateTask, setEditOrCreateTask] = useState(false);
+  const [currentTaskId, setCurrentTaskId] = useState(null);
 
   return(
     <main style={ MAIN_CSS }>
-      <Header />
+      <Header setCreateTask={ setEditOrCreateTask } />
+
       <section style={ TASKS_LOBBY_CSS }>
-        {TASKS_DATA.map((task, index) => <TaskField id={ index } text={ task.task } />)}
+        {
+          editOrCreateTask
+          ? <TaskEditor
+              currentTaskId={ currentTaskId }
+              setCurrentTaskId={ setCurrentTaskId }
+              setEditTask={ setEditOrCreateTask }
+            />
+          : TASKS_DATA.map((task) =>
+              <TaskField
+                key={ task.id }
+                taskId={ task.id }
+                text={ task.task }
+                setCurrentTaskId={ setCurrentTaskId }
+                setEditTask={ setEditOrCreateTask }
+              />)
+        }
       </section>
     </main>
   )
