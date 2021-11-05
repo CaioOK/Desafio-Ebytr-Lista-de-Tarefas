@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import TaskField from '../components/TaskField';
+import TaskEditor from '../components/TaskEditor';
 import TASKS_DATA from '../tasksMock';
 
 const MAIN_CSS = {
@@ -28,6 +29,7 @@ const TASKS_LOBBY_CSS = {
 
 function ToDoList() {
   const [editTask, setEditTask] = useState(false);
+  const [currentTaskId, setCurrentTaskId] = useState(1);
 
   return(
     <main style={ MAIN_CSS }>
@@ -35,9 +37,15 @@ function ToDoList() {
       <section style={ TASKS_LOBBY_CSS }>
         {
           editTask
-          ? <h1>Editando tarefa...</h1>
-          : TASKS_DATA.map((task, index) =>
-              <TaskField id={ index } text={ task.task } />)
+          ? <TaskEditor currentTaskId={ currentTaskId } setEditTask={ setEditTask } />
+          : TASKS_DATA.map((task) =>
+              <TaskField
+                key={ task.id }
+                taskId={ task.id }
+                text={ task.task }
+                setCurrentTaskId={ setCurrentTaskId }
+                setEditTask={ setEditTask }
+              />)
         }
       </section>
     </main>

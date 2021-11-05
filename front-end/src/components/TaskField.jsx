@@ -17,6 +17,7 @@ const TEXT_CSS = {
   height: '40px',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
+  textAlign: 'center',
 };
 
 const EDIT_BTN_CSS = {
@@ -31,28 +32,34 @@ function TaskField(props) {
   const [textCSS, setTextCss] = useState(TEXT_CSS);
   const [editBtnCSS, setEditBtnCSS] = useState(EDIT_BTN_CSS);
 
-  function handleFieldHover() {
+  function handleHoverField() {
     setTaskFieldCSS({ ...TASK_FIELD_CSS, height: '200px', transition: '500ms' });
     setTextCss({ ...TEXT_CSS, overflow: 'unset', height: 'auto', transition: '500ms' });
   }
 
-  function handleFieldUnHover() {
+  function handleUnHoverField() {
     setTaskFieldCSS({ ...TASK_FIELD_CSS, transition: '500ms' });
     setTextCss({ ...TEXT_CSS, overflow: 'hidden', transition: '500ms' });
   }
 
-  function handleEditBtnHover() {
+  function handleHoverEditBtn() {
     setEditBtnCSS({ ...EDIT_BTN_CSS, opacity: 1 })
   };
 
-  function handleEditBtnUnHover() {
+  function handleUnHoverEditBtn() {
     setEditBtnCSS({ ...EDIT_BTN_CSS, opacity: 0.5 })
   };
+
+  function handleClickEditBtn() {
+    props.setCurrentTaskId(props.taskId);
+    props.setEditTask(true);
+  }
 
   return(
     <div
       style={ taskFieldCSS }
-      onMouseEnter={ handleFieldHover } onMouseLeave={ handleFieldUnHover }
+      onMouseEnter={ handleHoverField }
+      onMouseLeave={ handleUnHoverField }
     >
       <p
         style={ textCSS }
@@ -62,8 +69,9 @@ function TaskField(props) {
       <button
         type='button'
         style={ editBtnCSS }
-        onMouseEnter={ handleEditBtnHover }
-        onMouseLeave={ handleEditBtnUnHover }
+        onMouseEnter={ handleHoverEditBtn }
+        onMouseLeave={ handleUnHoverEditBtn }
+        onClick={ handleClickEditBtn }
       >
         📝
       </button>
