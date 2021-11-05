@@ -54,7 +54,8 @@ function TaskEditor(props) {
       TASKS_DATA.push({ id, task: textAreaValue });
     }
 
-    return props.setEditTask(false);
+    props.setEditTask(false);
+    props.setCurrentTaskId(null);
   }
 
   return(

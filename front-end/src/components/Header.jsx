@@ -125,12 +125,17 @@ function Header(props) {
         <button
           type='button'
           style={ CREATE_TASKS_BTN }
-          onClick={ () => props.setCreateTask(true)
-          }
+          onClick={ () => props.setCreateTask(true) }
         >
           Criar Tarefa
         </button>
-        <button type='button' style={ SHOW_TASKS_BTN }>Listar Tarefas</button>
+        <button
+          type='button'
+          style={ SHOW_TASKS_BTN }
+          onClick={ () => props.setCreateTask(false) }
+        >
+          Listar Tarefas
+        </button>
         </div>
         <div style={ SEARCH_CONTAINER_CSS }>
         <input type='text' placeholder='Pesquisar' style={ SEARCH_BAR_CSS } />

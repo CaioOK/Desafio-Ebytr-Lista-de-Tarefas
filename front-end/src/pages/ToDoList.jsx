@@ -38,7 +38,11 @@ function ToDoList() {
       <section style={ TASKS_LOBBY_CSS }>
         {
           editOrCreateTask
-          ? <TaskEditor currentTaskId={ currentTaskId } setEditTask={ setEditOrCreateTask } />
+          ? <TaskEditor
+              currentTaskId={ currentTaskId }
+              setCurrentTaskId={ setCurrentTaskId }
+              setEditTask={ setEditOrCreateTask }
+            />
           : TASKS_DATA.map((task) =>
               <TaskField
                 key={ task.id }
