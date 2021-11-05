@@ -30,6 +30,7 @@ const TASKS_LOBBY_CSS = {
 function ToDoList() {
   const [editOrCreateTask, setEditOrCreateTask] = useState(false);
   const [currentTaskId, setCurrentTaskId] = useState(null);
+  const [tasksData, setTasksData] = useState(TASKS_DATA);
 
   return(
     <main style={ MAIN_CSS }>
@@ -43,13 +44,15 @@ function ToDoList() {
               setCurrentTaskId={ setCurrentTaskId }
               setEditTask={ setEditOrCreateTask }
             />
-          : TASKS_DATA.map((task) =>
+          : tasksData.map((task) =>
               <TaskField
                 key={ task.id }
                 taskId={ task.id }
+                tasksData= { tasksData }
                 text={ task.task }
                 setCurrentTaskId={ setCurrentTaskId }
                 setEditTask={ setEditOrCreateTask }
+                setTasksData={ setTasksData }
               />)
         }
       </section>
