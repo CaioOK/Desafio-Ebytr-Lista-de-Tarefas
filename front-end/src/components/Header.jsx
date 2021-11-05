@@ -132,7 +132,7 @@ function Header(props) {
         <button
           type='button'
           style={ SHOW_TASKS_BTN }
-          onClick={ () => props.setCreateTask(false) }
+          onClick={ () => { props.setCreateTask(false); props.setCurrentTaskId(null); } }
         >
           Listar Tarefas
         </button>

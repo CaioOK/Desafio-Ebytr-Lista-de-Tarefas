@@ -34,7 +34,10 @@ function ToDoList() {
 
   return(
     <main style={ MAIN_CSS }>
-      <Header setCreateTask={ setEditOrCreateTask } />
+      <Header
+        setCreateTask={ setEditOrCreateTask }
+        setCurrentTaskId={ setCurrentTaskId }
+      />
 
       <section style={ TASKS_LOBBY_CSS }>
         {
